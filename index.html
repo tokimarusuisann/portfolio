@@ -30,13 +30,23 @@
       margin: 0;
       font-family: var(--sans);
       color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
       background:
         radial-gradient(1200px 600px at 15% 10%, rgba(124,92,255,.22), transparent 60%),
         radial-gradient(900px 500px at 85% 20%, rgba(52,211,255,.16), transparent 55%),
         radial-gradient(700px 400px at 50% 85%, rgba(124,92,255,.12), transparent 60%),
         var(--bg);
-      line-height: 1.6;
-      overflow-x: hidden;
+      pointer-events: none;
     }
 
     a { color: inherit }
@@ -123,6 +133,23 @@
       color: var(--text);
       border-color: var(--line);
       background: rgba(255,255,255,.04);
+    }
+
+    @media (max-width: 720px) {
+      .nav {
+        align-items: flex-start;
+      }
+
+      .navlinks {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 8px;
+      }
+
+      .navlinks a {
+        font-size: 12.5px;
+        padding: 7px 9px;
+      }
     }
 
     /* Hero */
@@ -659,13 +686,13 @@
             <div style="font-size:24px; color: var(--muted);">Portfolio</div>
           </div>
         </a>
-        <nav class="navlinks" aria-label="ページ内ナビゲーション">
-          <a href="#works">Works</a>
-          <a href="#skills">Skills</a>
-          <a href="#process">Process</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
-        </nav>
+            <nav class="navlinks" aria-label="ページ内ナビゲーション">
+              <a href="#about">About</a>
+              <a href="#skills">Skills</a>
+              <a href="#demo">Demo</a>
+              <a href="#works">Student Works</a>
+              <a href="#portfolio">Portfolio PDF</a>
+            </nav>
       </div>
     </div>
   </header>
@@ -676,7 +703,7 @@
       <div class="container">
         <div class="heroGrid">
           <div>
-            <div class="badge"><span class="dot"></span> PLAYER 1 / Programmer</div>
+            <div class="badge"><span class="dot"></span> PLAYER 1</div>
             <h1>
               一歩ずつ、憧れの世界へ。<br />
               <span style="background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent;">
@@ -693,18 +720,9 @@
                 <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 7a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z" stroke="rgba(255,255,255,.9)" stroke-width="2" /><path d="M4 21c1.8-3.2 5-5 8-5s6.2 1.8 8 5" stroke="rgba(255,255,255,.9)" stroke-width="2" stroke-linecap="round" /></svg>
                 自己紹介へ
               </a>
-              <a class="btn" href="#works" aria-label="作品を見る">
+              <a class="btn" href="#demo" aria-label="作品を見る">
                 <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7" stroke="white" stroke-width="2" stroke-linecap="round" /><path d="M9 7h8v8" stroke="white" stroke-width="2" stroke-linecap="round" /></svg>
-                代表作を見る
-              </a>
-
-              <a class="btn" href="https://github.com/USERNAME" target="_blank" rel="noreferrer">
-                <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.48 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.38-3.37-1.38-.45-1.19-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.58 2.36 1.12 2.94.85.09-.67.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.09 0-1.13.39-2.05 1.03-2.77-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.06.8-.23 1.66-.34 2.51-.34.85 0 1.71.12 2.51.34 1.9-1.33 2.75-1.06 2.75-1.06.55 1.43.2 2.49.1 2.75.64.72 1.03 1.64 1.03 2.77 0 3.96-2.34 4.82-4.57 5.08.36.32.68.96.68 1.94 0 1.4-.01 2.53-.01 2.88 0 .26.18.58.69.48A10.06 10.06 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z" fill="rgba(255,255,255,.9)" /></svg>
-                GitHub
-              </a>
-              <a class="btn" href="#contact">
-                <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6Z" stroke="rgba(255,255,255,.9)" stroke-width="2" /><path d="m4 7 8 6 8-6" stroke="rgba(255,255,255,.9)" stroke-width="2" /></svg>
-                連絡先
+                作品を見る
               </a>
             </div>
 
@@ -725,11 +743,101 @@
                 <div class="tag">関心：HLSL / メタバース</div>
               </div>
               <div style="margin-top:10px; color:var(--muted); font-size:13.5px;">
-                作品ごとに力を入れた部分を提示します。<br/>コードは可読性を重視しております。<br/>
+                作品ごとに力を入れた部分を提示します。<br/>
+                またPDFで作品全体を見れるようにダウンロードできるようにもしていますので是非ご覧ください。
               </div>
             </div>
           </div>
 
+        </div>
+      </div>
+    </section>
+
+        <!-- ABOUT -->
+    <section id="about">
+      <div class="container">
+        <div class="sectionTitle">
+          <h2>About</h2>
+        </div>
+
+        <div class="grid">
+          <div class="card span7 reveal">
+            <h3 style="margin-top:0;">自己紹介</h3>
+            <p>
+              学生時代はゲームプログラミングに取り組み、レースゲームやTPSの制作を経験しました。
+              社会人となってからは、AIエンジニアおよびWebエンジニアとして企業に勤務し、業務の一環としてUnreal Engineを用いたシミュレーションの作成にも携わっています。
+              また、業務の傍ら、帰宅後はHLSLを用いたグラフィック表現の学習や、C#の勉強に継続的に取り組み、技術の幅を継続的に広げています。
+            </p>
+            <div class="meta">
+              <span class="tag">趣味：VRChat</span>
+              <span class="tag">好き：Game</span>
+              <span class="tag">興味：Shader</span>
+            </div>
+          </div>
+
+          <div class="card span5 reveal">
+            <h3 style="margin-top:0;">基本情報</h3>
+            <p class="mono" style="line-height:1.9;">
+              名前:PDF ポートフォリオに記載<br />
+              年齢: 23歳<br />
+              居住地: 東京都<br />
+              X/Twitter: <a href="https://x.com/dogu_623" target="_blank" rel="noreferrer">https://x.com/dogu_623</a><br />
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+        <!-- SKILLS -->
+    <section id="skills">
+      <div class="container">
+        <div class="sectionTitle">
+          <h2>Skills</h2>
+        </div>
+
+        <div class="grid">
+          <div class="card span8 reveal">
+            <div class="skillList">
+              <div class="skill">
+                <b>ゲーム基礎</b>
+                <span>ゲームループ / 入力 / 当たり判定 / 状態管理 / セーブ</span>
+                <div class="bar" aria-hidden="true"><i style="width:80%"></i></div>
+              </div>
+              <div class="skill">
+                <b>数学・物理</b>
+                <span>ベクトル / 行列 / 補間 / 速度・加速度 / コリジョン</span>
+                <div class="bar" aria-hidden="true"><i style="width:74%"></i></div>
+              </div>
+              <div class="skill">
+                <b>最適化・品質</b>
+                <span>プロファイル / GC対策 / フレーム時間管理</span>
+                <div class="bar" aria-hidden="true"><i style="width:70%"></i></div>
+              </div>
+              <div class="skill">
+                <b>AI設計・実装</b>
+                <span>自己推論 / 出力評価 / 再思考制御 / 処理高速化</span>
+                <div class="bar" aria-hidden="true"><i style="width:85%"></i></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card span4 reveal">
+            <div style="font-weight:700; margin-bottom:8px;">Tech Stack</div>
+            <div class="meta">
+              <span class="tag">C</span>
+              <span class="tag">C++</span>
+              <span class="tag">C#</span>
+              <span class="tag">React</span>
+              <span class="tag">Python</span>
+              <span class="tag">Unity</span>
+              <span class="tag">UnrealEngine5</span>
+              <span class="tag">Git</span>
+              <span class="tag">GitHub Desktop</span>
+              <span class="tag">SourceTree</span>
+              <span class="tag">HLSL(学習中)</span>
+            </div>
+
+          </div>
         </div>
       </div>
     </section>
@@ -873,7 +981,6 @@
       <div class="container">
         <div class="sectionTitle">
           <h2>Portfolio PDF</h2>
-          <p>その他の制作物はPDFでまとめています</p>
         </div>
 
         <div class="grid">
@@ -886,7 +993,7 @@
                 <h3 style="margin-top:0;">ポートフォリオ（全作品）</h3>
                 <p>
                   作品数が多いので、全体はPDFにまとめています。<br />
-                  企画・実装・改善の要点を短く整理しています。
+                  下記ボタンからダウンロードできます。
                 </p>
                 <div class="links">
                   <a class="smallLink" href="portfolio.pdf" download>PDFをダウンロード</a>
@@ -898,213 +1005,13 @@
       </div>
     </section>
 
-    <!-- SKILLS -->
-    <section id="skills">
-      <div class="container">
-        <div class="sectionTitle">
-          <h2>Skills</h2>
-          <p>使える／触れた、だけでなく「どこで使ったか」をWorksに紐づける</p>
-        </div>
-
-        <div class="grid">
-          <div class="card span8 reveal">
-            <div class="skillList">
-              <div class="skill">
-                <b>ゲーム基礎</b>
-                <span>ゲームループ / 入力 / 当たり判定 / 状態管理 / セーブ</span>
-                <div class="bar" aria-hidden="true"><i style="width:72%"></i></div>
-              </div>
-              <div class="skill">
-                <b>数学・物理</b>
-                <span>ベクトル / 行列 / 補間 / 速度・加速度 / コリジョン</span>
-                <div class="bar" aria-hidden="true"><i style="width:58%"></i></div>
-              </div>
-              <div class="skill">
-                <b>最適化・品質</b>
-                <span>プロファイル / GC対策 / フレーム時間管理 / 再現性のあるデバッグ</span>
-                <div class="bar" aria-hidden="true"><i style="width:55%"></i></div>
-              </div>
-              <div class="skill">
-                <b>AI / ツール</b>
-                <span>ステート / BT / ログ可視化 / エディタ拡張 / 自動化</span>
-                <div class="bar" aria-hidden="true"><i style="width:50%"></i></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card span4 reveal">
-            <div style="font-weight:700; margin-bottom:8px;">Tech Stack（例）</div>
-            <div class="meta">
-              <span class="tag">C</span>
-              <span class="tag">C++</span>
-              <span class="tag">C#</span>
-              <span class="tag">React</span>
-              <span class="tag">Unity</span>
-              <span class="tag">UnrealEngine5</span>
-              <span class="tag">Git</span>
-              <span class="tag">GitHub Desktop</span>
-              <span class="tag">SourceTree</span>
-              <span class="tag">HLSL(学習中)</span>
-            </div>
-            <div style="margin-top:10px; color:var(--muted); font-size:13.5px;">
-              得意分野／興味分野があればここに強調するとLPっぽくまとまります。<br/>
-              <span style="color: rgba(255,255,255,.55);">HLSL：沼に片足（抜ける予定なし）</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROCESS
-    <section id="process">
-      <div class="container">
-        <div class="sectionTitle">
-          <h2>Process</h2>
-          <p>制作の進め方（採用側は「再現性」を見たい）</p>
-        </div>
-
-        <div class="grid">
-          <div class="card span6 reveal">
-            <h3 style="margin-top:0;">設計 → 実装 → 検証 → 改善</h3>
-            <p>
-              仕様を小さく切り、バグの再現条件を固定し、ログ／可視化で原因を潰します。
-              「触って気持ちいい」を数値（入力遅延/速度/カメラ追従）でも追います。
-            </p>
-            <div class="meta">
-              <span class="tag">Issue駆動</span>
-              <span class="tag">再現手順</span>
-              <span class="tag">Debug UI</span>
-              <span class="tag">Profiling</span>
-            </div>
-          </div>
-
-          <div class="card span6 reveal">
-            <h3 style="margin-top:0;">見せ方</h3>
-            <p>
-              READMEに「目的」「担当箇所」「工夫」「苦労」「改善ログ」を短くまとめます。
-              動画は30〜60秒のハイライトを用意し、リンクで誘導します。
-            </p>
-            <div class="meta">
-              <span class="tag">README</span>
-              <span class="tag">1分動画</span>
-              <span class="tag">比較GIF</span>
-              <span class="tag">Before/After</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="card reveal" style="margin-top:14px;">
-          <h3 style="margin:0 0 8px;">改善ログ（例）</h3>
-          <div class="timeline">
-            <div class="row">
-              <div class="when">Week 1</div>
-              <div>
-                <b>プレイヤー制御の入力遅延を低減</b>
-                <p>入力→物理→描画の順序を見直し、プロファイルでフレーム内のボトルネックを特定。</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="when">Week 2</div>
-              <div>
-                <b>当たり判定の安定化</b>
-                <p>ヒット判定をフレーム依存から時間ベースへ調整。ログで再現性を担保。</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="when">Week 3</div>
-              <div>
-                <b>デバッグ可視化ツール追加</b>
-                <p>Navmesh / A* / 視界判定を画面上に表示し、調整コストを削減。</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section> -->
-
-    <!-- ABOUT -->
-    <section id="about">
-      <div class="container">
-        <div class="sectionTitle">
-          <h2>About</h2>
-        </div>
-
-        <div class="grid">
-          <div class="card span7 reveal">
-            <h3 style="margin-top:0;">自己紹介</h3>
-            <p>
-              学生時代はゲームプログラミングに取り組み、レースゲームやTPSの制作を経験しました。
-              社会人となってからは、AIエンジニアおよびWebエンジニアとして企業に勤務し、業務の一環としてUnreal Engineを用いたシミュレーションの作成にも携わっています。
-              また、業務の傍ら、帰宅後はHLSLを用いたグラフィック表現の学習や、C#の勉強に継続的に取り組み、技術の幅を継続的に広げています。
-            </p>
-            <div class="meta">
-              <span class="tag">趣味：Game / VRChat</span>
-              <span class="tag">好き：ドラゴンクエスト</span>
-              <span class="tag">興味：Shader</span>
-            </div>
-          </div>
-
-          <div class="card span5 reveal">
-            <h3 style="margin-top:0;">基本情報</h3>
-            <p class="mono" style="line-height:1.9;">
-              名前:PDF ポートフォリオに記載<br />
-              年齢: 23歳<br />
-              居住地: 東京都<br />
-              GitHub: github.com/USERNAME<br />
-              X/Twitter: https://x.com/dogu_623<br />
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact">
-      <div class="container">
-        <div class="sectionTitle">
-          <h2>Contact</h2>
-          <p>メール or フォーム誘導（GitHub Pagesならmailto運用が軽い）</p>
-        </div>
-
-        <div class="contact">
-          <div class="card reveal">
-            <h3 style="margin-top:0;">メール</h3>
-            <p>下のボタンは端末のメールアプリを開きます。</p>
-            <div class="ctaRow">
-              <a class="btn primary" href="mailto:yourmail@example.com?subject=Portfolio%20Inquiry&body=こんにちは。ポートフォリオを拝見しました。%0D%0A">
-                <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6Z" stroke="white" stroke-width="2" /><path d="m4 7 8 6 8-6" stroke="white" stroke-width="2" /></svg>
-                メールする
-              </a>
-              <a class="btn" href="https://github.com/USERNAME" target="_blank" rel="noreferrer">GitHubへ</a>
-            </div>
-            <p style="margin-top:10px; color:var(--muted); font-size:13px;">
-              ※応募時は、募集要項に合わせて件名を変えると丁寧です。
-            </p>
-          </div>
-
-          <div class="card reveal">
-            <h3 style="margin-top:0;">メッセージ（任意）</h3>
-            <p>フォームを置く場合は外部サービス（Google Forms等）へのリンクにすると簡単です。</p>
-            <div class="ctaRow">
-              <a class="btn" href="https://forms.gle/FORM_ID" target="_blank" rel="noreferrer">Googleフォームへ</a>
-              <a class="btn" href="#works">作品へ戻る</a>
-            </div>
-            <p style="margin-top:10px; color:var(--muted); font-size:13px;">
-              フォームを置かない場合はこのカード自体を削除してOK。
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
   </main>
 
   <footer>
     <div class="container">
       <div style="display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px;">
-        <div>© <span id="year"></span> Your Name</div>
-        <div style="color:var(--muted);">Built for GitHub Pages · Single HTML</div>
+        <div>© <span id="year"></span> エンジニア</div>
+        <div style="color:var(--muted);">Built for GitHub Pages</div>
       </div>
     </div>
   </footer>
