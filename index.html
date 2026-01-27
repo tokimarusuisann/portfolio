@@ -137,20 +137,63 @@
       background: rgba(255,255,255,.04);
     }
 
+    .hamburger {
+      display: none;
+      width: 42px;
+      height: 36px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 0;
+      flex-direction: column;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: rgba(255,255,255,.85);
+      border-radius: 999px;
+    }
+
     @media (max-width: 720px) {
       .nav {
         align-items: flex-start;
+        position: relative;
       }
 
       .navlinks {
-        width: 100%;
-        justify-content: flex-start;
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        flex-direction: column;
         gap: 8px;
+        padding: 10px;
+        background: rgba(11,15,23,.92);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(10px);
       }
 
       .navlinks a {
         font-size: 12.5px;
         padding: 7px 9px;
+      }
+
+      .navlinks.open {
+        display: flex;
+      }
+
+      .hamburger {
+        display: inline-flex;
       }
     }
 
@@ -695,13 +738,18 @@
             <div style="font-size:24px; color: var(--muted);">Portfolio</div>
           </div>
         </a>
-            <nav class="navlinks" aria-label="ページ内ナビゲーション">
-              <a href="#about">About</a>
-              <a href="#skills">Skills</a>
-              <a href="#demo">Demo</a>
-              <a href="#works">Student Works</a>
-              <a href="#portfolio">Portfolio PDF</a>
-            </nav>
+        <button class="hamburger" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="site-nav">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav id="site-nav" class="navlinks" aria-label="ページ内ナビゲーション">
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#demo">Demo</a>
+          <a href="#works">Student Works</a>
+          <a href="#portfolio">Portfolio PDF</a>
+        </nav>
       </div>
     </div>
   </header>
@@ -959,7 +1007,6 @@
               <span class="tag">C++</span>
               <span class="tag">DXライブラリ</span>
               <span class="tag">製作期間：3か月</span>
-              <span class="tag">ポートフォリオ内記載</span>
             </div>
             <!-- <div class="links">
               <a class="smallLink" href="https://github.com/USERNAME/REPO_A" target="_blank" rel="noreferrer">Code (GitHub)</a>
@@ -982,7 +1029,6 @@
               <span class="tag">C++</span>
               <span class="tag">DXライブラリ</span>
               <span class="tag">製作期間：3か月</span>
-              <span class="tag">ポートフォリオ内記載</span>
             </div>
             <div class="links">
               <!-- <a class="smallLink" href="https://github.com/USERNAME/REPO_B" target="_blank" rel="noreferrer">Code</a>
@@ -1284,6 +1330,31 @@
         if(card && !card.contains(e.target)){
           closeBoot();
         }
+      });
+    })();
+
+    // Mobile hamburger menu
+    (function(){
+      const btn = document.querySelector(".hamburger");
+      const nav = document.getElementById("site-nav");
+      if (!btn || !nav) return;
+
+      btn.addEventListener("click", () => {
+        const open = nav.classList.toggle("open");
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+
+      nav.querySelectorAll("a").forEach((a) => {
+        a.addEventListener("click", () => {
+          nav.classList.remove("open");
+          btn.setAttribute("aria-expanded", "false");
+        });
+      });
+
+      document.addEventListener("click", (e) => {
+        if (btn.contains(e.target) || nav.contains(e.target)) return;
+        nav.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
       });
     })();
   </script>
