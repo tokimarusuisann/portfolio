@@ -1,961 +1,1116 @@
 <!doctype html>
 <html lang="ja">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="ゲームプログラマ志望のポートフォリオ（LP風）" />
-    <title>Portfolio | Game Programmer</title>
-
-    <style>
-        :root {
-            --bg: #0b0f17;
-            --panel: rgba(255,255,255,.06);
-            --panel2: rgba(255,255,255,.10);
-            --text: rgba(255,255,255,.92);
-            --muted: rgba(255,255,255,.68);
-            --line: rgba(255,255,255,.12);
-            --accent: #7c5cff;
-            --accent2: #34d3ff;
-            --shadow: 0 20px 60px rgba(0,0,0,.45);
-            --radius: 18px;
-            --max: 1100px;
-            --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-            --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, Arial, "Apple Color Emoji","Segoe UI Emoji";
-        }
-
-        * {
-            box-sizing: border-box
-        }
-
-        html, body {
-            height: 100%
-        }
-
-        body {
-            margin: 0;
-            font-family: var(--sans);
-            color: var(--text);
-            background: radial-gradient(1200px 600px at 15% 10%, rgba(124,92,255,.22), transparent 60%), radial-gradient(900px 500px at 85% 20%, rgba(52,211,255,.16), transparent 55%), radial-gradient(700px 400px at 50% 85%, rgba(124,92,255,.12), transparent 60%), var(--bg);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        a {
-            color: inherit
-        }
-
-        .container {
-            max-width: var(--max);
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .skip {
-            position: absolute;
-            left: -9999px;
-            top: auto;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
-        }
-
-            .skip:focus {
-                left: 16px;
-                top: 16px;
-                width: auto;
-                height: auto;
-                padding: 10px 12px;
-                background: #fff;
-                color: #000;
-                border-radius: 10px;
-                z-index: 9999;
-            }
-
-        /* Nav */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            backdrop-filter: blur(12px);
-            background: linear-gradient(to bottom, rgba(11,15,23,.8), rgba(11,15,23,.35));
-            border-bottom: 1px solid var(--line);
-        }
-
-        .nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 0;
-            gap: 16px;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            font-weight: 700;
-            letter-spacing: .2px;
-        }
-
-        .logo {
-            width: 34px;
-            height: 34px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(52,211,255,.85));
-            box-shadow: 0 10px 30px rgba(124,92,255,.25);
-            display: grid;
-            place-items: center;
-            font-family: var(--mono);
-            font-size: 14px;
-        }
-
-        .navlinks {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-        }
-
-            .navlinks a {
-                text-decoration: none;
-                padding: 8px 10px;
-                border-radius: 12px;
-                color: var(--muted);
-                border: 1px solid transparent;
-            }
-
-                .navlinks a:hover {
-                    color: var(--text);
-                    border-color: var(--line);
-                    background: rgba(255,255,255,.04);
-                }
-
-        /* Hero */
-        .hero {
-            padding: 56px 0 26px;
-            position: relative;
-        }
-
-        .heroGrid {
-            display: grid;
-            grid-template-columns: 1.15fr .85fr;
-            gap: 26px;
-            align-items: stretch;
-        }
-
-        @media (max-width: 900px) {
-            .heroGrid {
-                grid-template-columns: 1fr;
-                gap: 18px;
-            }
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            border-radius: 999px;
-            background: rgba(255,255,255,.06);
-            border: 1px solid var(--line);
-            color: var(--muted);
-            font-size: 13px;
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--accent2);
-            box-shadow: 0 0 0 4px rgba(52,211,255,.12);
-        }
-
-        h1 {
-            margin: 14px 0 10px;
-            font-size: clamp(28px, 4vw, 44px);
-            line-height: 1.15;
-            letter-spacing: -.4px;
-        }
-
-        .lead {
-            margin: 0 0 18px;
-            color: var(--muted);
-            font-size: 15.5px;
-            max-width: 60ch;
-        }
-
-        .ctaRow {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 18px;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            border-radius: 14px;
-            padding: 11px 14px;
-            text-decoration: none;
-            border: 1px solid var(--line);
-            background: rgba(255,255,255,.05);
-            color: var(--text);
-            box-shadow: none;
-            transition: transform .12s ease, background .12s ease, border-color .12s ease;
-        }
-
-            .btn:hover {
-                transform: translateY(-1px);
-                background: rgba(255,255,255,.07);
-                border-color: rgba(255,255,255,.18);
-            }
-
-            .btn.primary {
-                border-color: rgba(124,92,255,.35);
-                background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(52,211,255,.55));
-                box-shadow: 0 18px 60px rgba(124,92,255,.22);
-            }
-
-                .btn.primary:hover {
-                    border-color: rgba(255,255,255,.22);
-                }
-
-            .btn .icon {
-                width: 18px;
-                height: 18px;
-                display: inline-block;
-            }
-
-        .panel {
-            background: rgba(255,255,255,.04);
-            border: 1px solid var(--line);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-        }
-
-        .heroCard {
-            padding: 18px 18px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            position: relative;
-            overflow: hidden;
-            min-height: 260px;
-        }
-
-            .heroCard:before {
-                content: "";
-                position: absolute;
-                inset: -80px -120px auto auto;
-                width: 220px;
-                height: 220px;
-                background: radial-gradient(circle at 30% 30%, rgba(52,211,255,.25), transparent 60%), radial-gradient(circle at 70% 70%, rgba(124,92,255,.28), transparent 55%);
-                filter: blur(1px);
-                transform: rotate(12deg);
-                pointer-events: none;
-            }
-
-        .statRow {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: auto;
-        }
-
-        .stat {
-            padding: 12px 12px;
-            border-radius: 16px;
-            border: 1px solid var(--line);
-            background: rgba(255,255,255,.04);
-            min-height: 74px;
-        }
-
-            .stat b {
-                display: block;
-                font-size: 16px;
-            }
-
-            .stat span {
-                color: var(--muted);
-                font-size: 12.5px;
-            }
-
-        /* Sections */
-        section {
-            padding: 34px 0;
-        }
-
-        .sectionTitle {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin: 0 0 14px;
-        }
-
-            .sectionTitle h2 {
-                margin: 0;
-                font-size: 20px;
-                letter-spacing: -.2px;
-            }
-
-            .sectionTitle p {
-                margin: 0;
-                color: var(--muted);
-                font-size: 13.5px;
-            }
-
-        .grid {
-            display: grid;
-            gap: 14px;
-            grid-template-columns: repeat(12, 1fr);
-        }
-
-        .card {
-            padding: 16px;
-            border-radius: var(--radius);
-            background: rgba(255,255,255,.04);
-            border: 1px solid var(--line);
-        }
-
-            .card:hover {
-                border-color: rgba(255,255,255,.18);
-                background: rgba(255,255,255,.05);
-            }
-
-        .span6 {
-            grid-column: span 6;
-        }
-
-        .span7 {
-            grid-column: span 7;
-        }
-
-        .span5 {
-            grid-column: span 5;
-        }
-
-        .span4 {
-            grid-column: span 4;
-        }
-
-        .span8 {
-            grid-column: span 8;
-        }
-
-        .span12 {
-            grid-column: span 12;
-        }
-
-        @media (max-width: 900px) {
-            .span6, .span7, .span5, .span4, .span8 {
-                grid-column: span 12;
-            }
-        }
-
-        .thumb {
-            width: 100%;
-            aspect-ratio: 16/9;
-            border-radius: 14px;
-            border: 1px solid var(--line);
-            background: linear-gradient(135deg, rgba(124,92,255,.18), rgba(52,211,255,.10)), repeating-linear-gradient(45deg, rgba(255,255,255,.06) 0, rgba(255,255,255,.06) 10px, transparent 10px, transparent 20px);
-            display: grid;
-            place-items: center;
-            color: rgba(255,255,255,.75);
-            font-family: var(--mono);
-            font-size: 12px;
-            overflow: hidden;
-        }
-
-        .meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .tag {
-            font-size: 12px;
-            padding: 6px 9px;
-            border-radius: 999px;
-            border: 1px solid var(--line);
-            background: rgba(255,255,255,.03);
-            color: var(--muted);
-        }
-
-        .card h3 {
-            margin: 12px 0 6px;
-            font-size: 16px;
-        }
-
-        .card p {
-            margin: 0;
-            color: var(--muted);
-            font-size: 13.5px;
-        }
-
-        .card .links {
-            margin-top: 10px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .smallLink {
-            font-size: 13px;
-            text-decoration: none;
-            padding: 8px 10px;
-            border-radius: 12px;
-            border: 1px solid var(--line);
-            background: rgba(255,255,255,.03);
-            color: var(--text);
-        }
-
-            .smallLink:hover {
-                background: rgba(255,255,255,.05);
-                border-color: rgba(255,255,255,.18);
-            }
-
-        /* Skills */
-        .skillList {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .skill {
-            flex: 1 1 220px;
-            padding: 12px 12px;
-            border-radius: 16px;
-            border: 1px solid var(--line);
-            background: rgba(255,255,255,.04);
-        }
-
-            .skill b {
-                display: block;
-                font-size: 14px;
-                margin-bottom: 4px;
-            }
-
-            .skill span {
-                color: var(--muted);
-                font-size: 13px;
-            }
-
-        .bar {
-            height: 8px;
-            border-radius: 999px;
-            background: rgba(255,255,255,.06);
-            border: 1px solid var(--line);
-            overflow: hidden;
-            margin-top: 10px;
-        }
-
-            .bar > i {
-                display: block;
-                height: 100%;
-                width: 60%;
-                background: linear-gradient(90deg, rgba(124,92,255,.9), rgba(52,211,255,.75));
-            }
-
-        /* Timeline */
-        .timeline {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .row {
-            display: flex;
-            gap: 12px;
-            padding: 12px;
-            border-radius: 16px;
-            border: 1px solid var(--line);
-            background: rgba(255,255,255,.04);
-        }
-
-        .when {
-            min-width: 120px;
-            color: var(--muted);
-            font-family: var(--mono);
-            font-size: 12.5px;
-        }
-
-        .row b {
-            display: block;
-            margin-bottom: 2px;
-        }
-
-        .row p {
-            margin: 0;
-            color: var(--muted);
-            font-size: 13.5px;
-        }
-
-        @media (max-width: 520px) {
-            .row {
-                flex-direction: column;
-            }
-
-            .when {
-                min-width: auto;
-            }
-        }
-
-        /* Contact */
-        .contact {
-            display: grid;
-            gap: 14px;
-            grid-template-columns: 1fr 1fr;
-        }
-
-        @media (max-width: 900px) {
-            .contact {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .contact .card {
-            min-height: 160px;
-        }
-
-        .mono {
-            font-family: var(--mono);
-        }
-
-        footer {
-            padding: 34px 0 48px;
-            color: var(--muted);
-            border-top: 1px solid var(--line);
-            margin-top: 20px;
-        }
-
-        /* Reveal */
-        .reveal {
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity .45s ease, transform .45s ease;
-        }
-
-            .reveal.show {
-                opacity: 1;
-                transform: none;
-            }
-
-        /* Optional: prefers-reduced-motion */
-        @media (prefers-reduced-motion: reduce) {
-            .btn, .reveal {
-                transition: none
-            }
-
-                .btn:hover {
-                    transform: none
-                }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="ゲームプログラマ志望のポートフォリオ（LP風）" />
+  <title>Portfolio | Game Programmer</title>
+
+  <style>
+    :root {
+      --bg: #0b0f17;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.10);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --line: rgba(255,255,255,.12);
+      --accent: #7c5cff;
+      --accent2: #34d3ff;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+      --max: 1100px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    * { box-sizing: border-box }
+    html, body { height: 100% }
+
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 15% 10%, rgba(124,92,255,.22), transparent 60%),
+        radial-gradient(900px 500px at 85% 20%, rgba(52,211,255,.16), transparent 55%),
+        radial-gradient(700px 400px at 50% 85%, rgba(124,92,255,.12), transparent 60%),
+        var(--bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit }
+
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .skip {
+      position: absolute;
+      left: -9999px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+    .skip:focus {
+      left: 16px;
+      top: 16px;
+      width: auto;
+      height: auto;
+      padding: 10px 12px;
+      background: #fff;
+      color: #000;
+      border-radius: 10px;
+      z-index: 9999;
+    }
+
+    /* Nav */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(to bottom, rgba(11,15,23,.8), rgba(11,15,23,.35));
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+
+    .logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(52,211,255,.85));
+      box-shadow: 0 10px 30px rgba(124,92,255,.25);
+      display: grid;
+      place-items: center;
+      font-family: var(--mono);
+      font-size: 14px;
+    }
+
+    .navlinks {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .navlinks a {
+      text-decoration: none;
+      padding: 8px 10px;
+      border-radius: 12px;
+      color: var(--muted);
+      border: 1px solid transparent;
+    }
+    .navlinks a:hover {
+      color: var(--text);
+      border-color: var(--line);
+      background: rgba(255,255,255,.04);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 56px 0 26px;
+      position: relative;
+    }
+
+    .heroGrid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 900px) {
+      .heroGrid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent2);
+      box-shadow: 0 0 0 4px rgba(52,211,255,.12);
+    }
+
+    h1 {
+      margin: 14px 0 10px;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.15;
+      letter-spacing: -.4px;
+    }
+
+    .lead {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 15.5px;
+      max-width: 60ch;
+    }
+
+    .ctaRow {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border-radius: 14px;
+      padding: 11px 14px;
+      text-decoration: none;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      box-shadow: none;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.07);
+      border-color: rgba(255,255,255,.18);
+    }
+
+    .btn.primary {
+      border-color: rgba(124,92,255,.35);
+      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(52,211,255,.55));
+      box-shadow: 0 18px 60px rgba(124,92,255,.22);
+    }
+    .btn.primary:hover {
+      border-color: rgba(255,255,255,.22);
+    }
+
+    .btn .icon {
+      width: 18px;
+      height: 18px;
+      display: inline-block;
+    }
+
+    .panel {
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .heroCard {
+      padding: 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+      min-height: 260px;
+    }
+
+    .heroCard:before {
+      content: "";
+      position: absolute;
+      inset: -80px -120px auto auto;
+      width: 220px;
+      height: 220px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(52,211,255,.25), transparent 60%),
+        radial-gradient(circle at 70% 70%, rgba(124,92,255,.28), transparent 55%);
+      filter: blur(1px);
+      transform: rotate(12deg);
+      pointer-events: none;
+    }
+
+    /* Sections */
+    section { padding: 34px 0; }
+
+    .sectionTitle {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 0 0 14px;
+    }
+
+    .sectionTitle h2 {
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: -.2px;
+    }
+
+    .sectionTitle p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13.5px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+
+    .card {
+      padding: 16px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--line);
+    }
+
+    .card:hover {
+      border-color: rgba(255,255,255,.18);
+      background: rgba(255,255,255,.05);
+    }
+
+    .span6 { grid-column: span 6; }
+    .span7 { grid-column: span 7; }
+    .span5 { grid-column: span 5; }
+    .span4 { grid-column: span 4; }
+    .span8 { grid-column: span 8; }
+    .span12 { grid-column: span 12; }
+
+    @media (max-width: 900px) {
+      .span6, .span7, .span5, .span4, .span8 { grid-column: span 12; }
+    }
+
+    .thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(124,92,255,.18), rgba(52,211,255,.10)),
+        repeating-linear-gradient(45deg, rgba(255,255,255,.06) 0, rgba(255,255,255,.06) 10px, transparent 10px, transparent 20px);
+      display: grid;
+      place-items: center;
+      color: rgba(255,255,255,.75);
+      font-family: var(--mono);
+      font-size: 12px;
+      overflow: hidden;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      font-size: 12px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+    }
+
+    .card h3 { margin: 12px 0 6px; font-size: 16px; }
+    .card p { margin: 0; color: var(--muted); font-size: 13.5px; }
+
+    .card .links {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .smallLink {
+      font-size: 13px;
+      text-decoration: none;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+    }
+
+    .smallLink:hover {
+      background: rgba(255,255,255,.05);
+      border-color: rgba(255,255,255,.18);
+    }
+
+    /* Skills */
+    .skillList { display: flex; flex-wrap: wrap; gap: 10px; }
+    .skill {
+      flex: 1 1 220px;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+    }
+    .skill b { display: block; font-size: 14px; margin-bottom: 4px; }
+    .skill span { color: var(--muted); font-size: 13px; }
+
+    .bar {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--line);
+      overflow: hidden;
+      margin-top: 10px;
+    }
+    .bar > i {
+      display: block;
+      height: 100%;
+      width: 60%;
+      background: linear-gradient(90deg, rgba(124,92,255,.9), rgba(52,211,255,.75));
+    }
+
+    /* Timeline */
+    .timeline { display: flex; flex-direction: column; gap: 10px; }
+    .row {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+    }
+    .when {
+      min-width: 120px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12.5px;
+    }
+    .row b { display: block; margin-bottom: 2px; }
+    .row p { margin: 0; color: var(--muted); font-size: 13.5px; }
+
+    @media (max-width: 520px) {
+      .row { flex-direction: column; }
+      .when { min-width: auto; }
+    }
+
+    /* Contact */
+    .contact {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 900px) {
+      .contact { grid-template-columns: 1fr; }
+    }
+
+    .contact .card { min-height: 160px; }
+    .mono { font-family: var(--mono); }
+
+    footer {
+      padding: 34px 0 48px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      margin-top: 20px;
+    }
+
+    /* Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .45s ease, transform .45s ease;
+    }
+    .reveal.show { opacity: 1; transform: none; }
+
+    /* Optional: prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      .btn, .reveal { transition: none }
+      .btn:hover { transform: none }
+    }
+
+    /* =========================================================
+       GAME-LIKE BOOT / PRESS START OVERLAY
+       ========================================================= */
+    .boot {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(900px 600px at 20% 20%, rgba(124,92,255,.20), transparent 60%),
+        radial-gradient(800px 500px at 80% 35%, rgba(52,211,255,.14), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.75), rgba(0,0,0,.82)),
+        var(--bg);
+      overflow: hidden;
+      pointer-events: auto;
+    }
+
+    .boot::before {
+      /* scanlines */
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,.04) 0px,
+        rgba(255,255,255,.04) 1px,
+        transparent 1px,
+        transparent 4px
+      );
+      opacity: .22;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+
+    .boot::after {
+      /* subtle vignette */
+      content: "";
+      position: absolute;
+      inset: -80px;
+      background: radial-gradient(circle at 50% 40%, transparent 0 45%, rgba(0,0,0,.55) 70%);
+      pointer-events: none;
+    }
+
+    .bootCard {
+      width: min(720px, calc(100% - 28px));
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(11,15,23,.68);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 30px 100px rgba(0,0,0,.65);
+      padding: 18px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bootCardHeader {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .bootTitle {
+      font-family: var(--mono);
+      font-weight: 800;
+      letter-spacing: .6px;
+      font-size: 14px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.86);
+    }
+
+    .bootChip {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: rgba(255,255,255,.70);
+      border: 1px solid rgba(255,255,255,.14);
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.05);
+      user-select: none;
+    }
+
+    .bootLog {
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      padding: 12px 12px;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: rgba(255,255,255,.78);
+      line-height: 1.55;
+      min-height: 132px;
+      white-space: pre-wrap;
+    }
+
+    .bootBar {
+      margin-top: 12px;
+      height: 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .bootBar > i {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, rgba(124,92,255,.95), rgba(52,211,255,.75));
+      transition: width 180ms ease;
+    }
+
+    .bootRow {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .bootHint {
+      color: rgba(255,255,255,.62);
+      font-size: 12.5px;
+    }
+
+    .pressStart {
+      font-family: var(--mono);
+      font-weight: 800;
+      letter-spacing: .8px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.90);
+      cursor: pointer;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pressStart:hover {
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.22);
+    }
+
+    .blink {
+      animation: blink 1.05s steps(2, end) infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0.25; }
+    }
+
+    .bootHidden {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 360ms ease;
+    }
+
+    /* reduce motion */
+    @media (prefers-reduced-motion: reduce) {
+      .boot::before { opacity: .12; }
+      .pressStart { animation: none; }
+      .blink { animation: none; }
+      .bootBar > i { transition: none; }
+      .bootHidden { transition: none; }
+    }
+  </style>
 </head>
 
 <body>
-    <a class="skip" href="#main">本文へスキップ</a>
-
-    <header>
-        <div class="container">
-            <div class="nav">
-                <a class="brand" href="#top">
-                    <div class="logo">GP</div>
-                    <div>
-                        <div style="font-size:14px;">Your Name</div>
-                        <div style="font-size:12px; color: var(--muted);">Game Programmer Portfolio</div>
-                    </div>
-                </a>
-                <nav class="navlinks" aria-label="ページ内ナビゲーション">
-                    <a href="#works">Works</a>
-                    <a href="#skills">Skills</a>
-                    <a href="#process">Process</a>
-                    <a href="#about">About</a>
-                    <a href="#contact">Contact</a>
-                </nav>
-            </div>
+  <!-- GAME BOOT OVERLAY -->
+  <div id="boot" class="boot" role="dialog" aria-modal="true" aria-label="起動演出">
+    <div class="bootCard">
+      <div class="bootCardHeader">
+        <div>
+          <div class="bootTitle">PORTFOLIO.EXE</div>
+          <div style="color: rgba(255,255,255,.62); font-size: 12px; margin-top: 6px;">
+            Game Programmer Mode
+          </div>
         </div>
-    </header>
+        <div class="bootChip" id="bootChip">v1.0</div>
+      </div>
 
-    <main id="main">
-        <!-- HERO -->
-        <section class="hero" id="top">
-            <div class="container">
-                <div class="heroGrid">
-                    <div>
-                        <div class="badge"><span class="dot"></span> ゲームプログラマ志望 / C++・Unity・Unreal など</div>
-                        <h1>
-                            “遊び” を成立させるための<br />
-                            <span style="background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent;">
-                                実装力と改善力
-                            </span>
-                        </h1>
-                        <p class="lead">
-                            作品は「動くもの」を中心に、設計・実装・デバッグ・最適化までを自走して進めます。
-                            下記は代表作と、技術スタック／制作プロセスの要約です。
-                        </p>
+      <div id="bootLog" class="bootLog" aria-live="polite"></div>
 
-                        <div class="ctaRow">
-                            <a class="btn primary" href="#works" aria-label="作品を見る">
-                                <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7" stroke="white" stroke-width="2" stroke-linecap="round" /><path d="M9 7h8v8" stroke="white" stroke-width="2" stroke-linecap="round" /></svg>
-                                代表作を見る
-                            </a>
-                            <a class="btn" href="https://github.com/USERNAME" target="_blank" rel="noreferrer">
-                                <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.48 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.38-3.37-1.38-.45-1.19-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.58 2.36 1.12 2.94.85.09-.67.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.09 0-1.13.39-2.05 1.03-2.77-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.06.8-.23 1.66-.34 2.51-.34.85 0 1.71.12 2.51.34 1.9-1.33 2.75-1.06 2.75-1.06.55 1.43.2 2.49.1 2.75.64.72 1.03 1.64 1.03 2.77 0 3.96-2.34 4.82-4.57 5.08.36.32.68.96.68 1.94 0 1.4-.01 2.53-.01 2.88 0 .26.18.58.69.48A10.06 10.06 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z" fill="rgba(255,255,255,.9)" /></svg>
-                                GitHub
-                            </a>
-                            <a class="btn" href="#contact">
-                                <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6Z" stroke="rgba(255,255,255,.9)" stroke-width="2" /><path d="m4 7 8 6 8-6" stroke="rgba(255,255,255,.9)" stroke-width="2" /></svg>
-                                連絡先
-                            </a>
-                        </div>
+      <div class="bootBar" aria-hidden="true"><i id="bootBar"></i></div>
 
-                        <div style="margin-top:14px; color: var(--muted); font-size: 12.5px;">
-                            想定：新卒/インターン応募用。PDF提出が必要な場合はこのページを印刷→PDF化でも運用できます。
-                        </div>
-                    </div>
+      <div class="bootRow">
+        <div class="bootHint" id="bootHint">Tip: Esc でスキップできます。</div>
+        <button id="pressStart" class="pressStart" type="button" style="display:none;">
+          ▶ <span class="blink">PRESS START</span>
+        </button>
+      </div>
+    </div>
+  </div>
 
-                    <div class="panel heroCard reveal">
-                        <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:10px;">
-                            <div>
-                                <div style="font-weight:700; font-size:15px;">Quick Summary</div>
-                                <div style="color:var(--muted); font-size:13px; margin-top:2px;">採用担当が最初に見る要点</div>
-                            </div>
-                            <div class="badge" title="更新日（手動で変更）">Updated: 2026-01-20</div>
-                        </div>
+  <a class="skip" href="#main">本文へスキップ</a>
 
-                        <div class="card" style="padding:14px;">
-                            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-                                <div class="tag">得意：ゲームループ / 入力 / 状態遷移</div>
-                                <div class="tag">関心：最適化 / ツール / ECS</div>
-                                <div class="tag">方針：再現性のあるデバッグ</div>
-                            </div>
-                            <div style="margin-top:10px; color:var(--muted); font-size:13.5px;">
-                                作品ごとに「目的 → 実装 → 検証 → 改善」をセットで提示します。コードは読みやすさと拡張性を重視。
-                            </div>
-                        </div>
+  <header>
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="#top">
+          <div class="logo">TR</div>
+          <div>
+            <div style="font-size:24px; color: var(--muted);">Portfolio</div>
+          </div>
+        </a>
+        <nav class="navlinks" aria-label="ページ内ナビゲーション">
+          <a href="#works">Works</a>
+          <a href="#skills">Skills</a>
+          <a href="#process">Process</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
 
-                        <div class="statRow">
-                            <div class="stat">
-                                <b>3</b>
-                                <span>代表作（目安）</span>
-                            </div>
-                            <div class="stat">
-                                <b>Unity / C++</b>
-                                <span>主な環境（例）</span>
-                            </div>
-                            <div class="stat">
-                                <b>60fps</b>
-                                <span>最適化目標（例）</span>
-                            </div>
-                        </div>
-                    </div>
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="container">
+        <div class="heroGrid">
+          <div>
+            <div class="badge"><span class="dot"></span> PLAYER 1 / Programmer</div>
+            <h1>
+              一歩ずつ、憧れの世界へ。<br />
+              <span style="background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent;">
+                ポートフォリオと成長のログ。
+              </span>
+            </h1>
+            <p class="lead">
+              エンタメ系に携われるプログラマを志望しています。<br/>
+              エンタメプログラマに一歩でも近づけたらいいと思いこのサイトを作ります。<br/>
+            </p>
 
-                </div>
+            <div class="ctaRow">
+              <a class="btn primary" href="#about">
+                <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 7a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z" stroke="rgba(255,255,255,.9)" stroke-width="2" /><path d="M4 21c1.8-3.2 5-5 8-5s6.2 1.8 8 5" stroke="rgba(255,255,255,.9)" stroke-width="2" stroke-linecap="round" /></svg>
+                自己紹介へ
+              </a>
+              <a class="btn" href="#works" aria-label="作品を見る">
+                <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7" stroke="white" stroke-width="2" stroke-linecap="round" /><path d="M9 7h8v8" stroke="white" stroke-width="2" stroke-linecap="round" /></svg>
+                代表作を見る
+              </a>
+
+              <a class="btn" href="https://github.com/USERNAME" target="_blank" rel="noreferrer">
+                <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.48 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.38-3.37-1.38-.45-1.19-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.58 2.36 1.12 2.94.85.09-.67.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.09 0-1.13.39-2.05 1.03-2.77-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.06.8-.23 1.66-.34 2.51-.34.85 0 1.71.12 2.51.34 1.9-1.33 2.75-1.06 2.75-1.06.55 1.43.2 2.49.1 2.75.64.72 1.03 1.64 1.03 2.77 0 3.96-2.34 4.82-4.57 5.08.36.32.68.96.68 1.94 0 1.4-.01 2.53-.01 2.88 0 .26.18.58.69.48A10.06 10.06 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z" fill="rgba(255,255,255,.9)" /></svg>
+                GitHub
+              </a>
+              <a class="btn" href="#contact">
+                <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6Z" stroke="rgba(255,255,255,.9)" stroke-width="2" /><path d="m4 7 8 6 8-6" stroke="rgba(255,255,255,.9)" stroke-width="2" /></svg>
+                連絡先
+              </a>
             </div>
-        </section>
 
-        <!-- WORKS -->
-        <section id="works">
-            <div class="container">
-                <div class="sectionTitle">
-                    <h2>Works</h2>
-                    <p>「何を作ったか」より「どんな課題をどう解いたか」を短文で</p>
-                </div>
+          </div>
 
-                <div class="grid">
-                    <!-- Work 1 -->
-                    <article class="card span7 reveal">
-                        <div class="thumb" aria-label="作品サムネ（置き換え）">
-                            SCREENSHOT / GIF / VIDEO
-                        </div>
-                        <h3>代表作A：アクション（例）</h3>
-                        <p>
-                            目的：操作感の気持ちよさと、当たり判定の安定性。<br />
-                            担当：プレイヤー制御、カメラ、ヒット判定、軽量な状態機械。
-                        </p>
-                        <div class="meta" aria-label="タグ">
-                            <span class="tag">Unity</span>
-                            <span class="tag">C#</span>
-                            <span class="tag">State Machine</span>
-                            <span class="tag">Hitbox</span>
-                            <span class="tag">60fps</span>
-                        </div>
-                        <div class="links">
-                            <a class="smallLink" href="https://github.com/USERNAME/REPO_A" target="_blank" rel="noreferrer">Code (GitHub)</a>
-                            <a class="smallLink" href="https://youtu.be/VIDEO_ID" target="_blank" rel="noreferrer">Gameplay (YouTube)</a>
-                            <a class="smallLink" href="#" onclick="return openModal('workA');">詳細</a>
-                        </div>
-                    </article>
-
-                    <!-- Work 2 -->
-                    <article class="card span5 reveal">
-                        <div class="thumb">SCREENSHOT</div>
-                        <h3>代表作B：AI / システム（例）</h3>
-                        <p>
-                            目的：敵AIの「読みやすい賢さ」。<br />
-                            担当：ビヘイビアツリー、経路探索、デバッグ可視化。
-                        </p>
-                        <div class="meta">
-                            <span class="tag">C++</span>
-                            <span class="tag">Unreal (例)</span>
-                            <span class="tag">Behavior Tree</span>
-                            <span class="tag">A*</span>
-                        </div>
-                        <div class="links">
-                            <a class="smallLink" href="https://github.com/USERNAME/REPO_B" target="_blank" rel="noreferrer">Code</a>
-                            <a class="smallLink" href="#" onclick="return openModal('workB');">詳細</a>
-                        </div>
-                    </article>
-
-                    <!-- Work 3 -->
-                    <article class="card span12 reveal">
-                        <div class="grid" style="grid-template-columns: 5fr 7fr; gap:14px; align-items:center;">
-                            <div class="thumb" style="aspect-ratio: 16/10;">SCREENSHOT</div>
-                            <div>
-                                <h3 style="margin-top:0;">代表作C：ツール / パイプライン（例）</h3>
-                                <p>
-                                    目的：制作効率を上げるための自作ツール。<br />
-                                    例：ステージ配置ツール、ログ／リプレイ、データ検証、ビルド補助など。
-                                </p>
-                                <div class="meta">
-                                    <span class="tag">Editor Tool</span>
-                                    <span class="tag">JSON</span>
-                                    <span class="tag">Debug UI</span>
-                                    <span class="tag">Automation</span>
-                                </div>
-                                <div class="links">
-                                    <a class="smallLink" href="https://github.com/USERNAME/REPO_C" target="_blank" rel="noreferrer">Code</a>
-                                    <a class="smallLink" href="#" onclick="return openModal('workC');">詳細</a>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-
-                <div style="margin-top:12px; color:var(--muted); font-size:13px;">
-                    ※ スクショ/GIFは軽量化のためWebP推奨。YouTube埋め込みは重い場合があるのでリンク運用でもOK。
-                </div>
+          <div class="panel heroCard reveal">
+            <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:10px;">
+              <div>
+                <div style="font-weight:700; font-size:15px;">Quick Summary</div>
+              </div>
+              <div class="badge" title="更新日（手動で変更）">Updated: 2026-01-27</div>
             </div>
-        </section>
 
-        <!-- SKILLS -->
-        <section id="skills">
-            <div class="container">
-                <div class="sectionTitle">
-                    <h2>Skills</h2>
-                    <p>使える／触れた、だけでなく「どこで使ったか」をWorksに紐づける</p>
-                </div>
-
-                <div class="grid">
-                    <div class="card span8 reveal">
-                        <div class="skillList">
-                            <div class="skill">
-                                <b>ゲーム基礎</b>
-                                <span>ゲームループ / 入力 / 当たり判定 / 状態管理 / セーブ</span>
-                                <div class="bar" aria-hidden="true"><i style="width:72%"></i></div>
-                            </div>
-                            <div class="skill">
-                                <b>数学・物理</b>
-                                <span>ベクトル / 行列 / 補間 / 速度・加速度 / コリジョン</span>
-                                <div class="bar" aria-hidden="true"><i style="width:58%"></i></div>
-                            </div>
-                            <div class="skill">
-                                <b>最適化・品質</b>
-                                <span>プロファイル / GC対策 / フレーム時間管理 / 再現性のあるデバッグ</span>
-                                <div class="bar" aria-hidden="true"><i style="width:55%"></i></div>
-                            </div>
-                            <div class="skill">
-                                <b>AI / ツール</b>
-                                <span>ステート / BT / ログ可視化 / エディタ拡張 / 自動化</span>
-                                <div class="bar" aria-hidden="true"><i style="width:50%"></i></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card span4 reveal">
-                        <div style="font-weight:700; margin-bottom:8px;">Tech Stack（例）</div>
-                        <div class="meta">
-                            <span class="tag">C++</span>
-                            <span class="tag">C#</span>
-                            <span class="tag">Unity</span>
-                            <span class="tag">Unreal</span>
-                            <span class="tag">Git</span>
-                            <span class="tag">CI (例)</span>
-                            <span class="tag">Shaders (例)</span>
-                        </div>
-                        <div style="margin-top:10px; color:var(--muted); font-size:13.5px;">
-                            得意分野／興味分野があればここに強調するとLPっぽくまとまります。
-                        </div>
-                    </div>
-                </div>
+            <div class="card" style="padding:14px;">
+              <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                <div class="tag">特技：行動に移す事 / コミュニケーション</div>
+                <div class="tag">得意：キャラクター制御 / カメラ制御</div>
+                <div class="tag">関心：HLSL / メタバース</div>
+              </div>
+              <div style="margin-top:10px; color:var(--muted); font-size:13.5px;">
+                作品ごとに力を入れた部分を提示します。<br/>コードは可読性を重視しております。<br/>
+              </div>
             </div>
-        </section>
+          </div>
 
-        <!-- PROCESS -->
-        <section id="process">
-            <div class="container">
-                <div class="sectionTitle">
-                    <h2>Process</h2>
-                    <p>制作の進め方（採用側は「再現性」を見たい）</p>
-                </div>
-
-                <div class="grid">
-                    <div class="card span6 reveal">
-                        <h3 style="margin-top:0;">設計 → 実装 → 検証 → 改善</h3>
-                        <p>
-                            仕様を小さく切り、バグの再現条件を固定し、ログ／可視化で原因を潰します。
-                            「触って気持ちいい」を数値（入力遅延/速度/カメラ追従）でも追います。
-                        </p>
-                        <div class="meta">
-                            <span class="tag">Issue駆動</span>
-                            <span class="tag">再現手順</span>
-                            <span class="tag">Debug UI</span>
-                            <span class="tag">Profiling</span>
-                        </div>
-                    </div>
-
-                    <div class="card span6 reveal">
-                        <h3 style="margin-top:0;">見せ方</h3>
-                        <p>
-                            READMEに「目的」「担当箇所」「工夫」「苦労」「改善ログ」を短くまとめます。
-                            動画は30〜60秒のハイライトを用意し、リンクで誘導します。
-                        </p>
-                        <div class="meta">
-                            <span class="tag">README</span>
-                            <span class="tag">1分動画</span>
-                            <span class="tag">比較GIF</span>
-                            <span class="tag">Before/After</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card reveal" style="margin-top:14px;">
-                    <h3 style="margin:0 0 8px;">改善ログ（例）</h3>
-                    <div class="timeline">
-                        <div class="row">
-                            <div class="when">Week 1</div>
-                            <div>
-                                <b>プレイヤー制御の入力遅延を低減</b>
-                                <p>入力→物理→描画の順序を見直し、プロファイルでフレーム内のボトルネックを特定。</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="when">Week 2</div>
-                            <div>
-                                <b>当たり判定の安定化</b>
-                                <p>ヒット判定をフレーム依存から時間ベースへ調整。ログで再現性を担保。</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="when">Week 3</div>
-                            <div>
-                                <b>デバッグ可視化ツール追加</b>
-                                <p>Navmesh / A* / 視界判定を画面上に表示し、調整コストを削減。</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- ABOUT -->
-        <section id="about">
-            <div class="container">
-                <div class="sectionTitle">
-                    <h2>About</h2>
-                    <p>短い自己紹介＋志望動機は「何がしたいか」を1行で</p>
-                </div>
-
-                <div class="grid">
-                    <div class="card span7 reveal">
-                        <h3 style="margin-top:0;">自己紹介（例）</h3>
-                        <p>
-                            ゲームプログラマ志望。プレイヤー体験に直結する挙動（入力・移動・カメラ・当たり判定）を中心に実装してきました。
-                            将来的には、ゲームプレイ基盤やツール開発にも強いエンジニアを目指しています。
-                        </p>
-                        <div class="meta">
-                            <span class="tag">興味：Gameplay</span>
-                            <span class="tag">興味：Engine</span>
-                            <span class="tag">興味：Tools</span>
-                        </div>
-                    </div>
-
-                    <div class="card span5 reveal">
-                        <h3 style="margin-top:0;">基本情報</h3>
-                        <p class="mono" style="line-height:1.9;">
-                            Name: Your Name<br />
-                            Location: Japan (例)<br />
-                            GitHub: github.com/USERNAME<br />
-                            X/Twitter: x.com/USERNAME (任意)<br />
-                            Blog: (任意)
-                        </p>
-                        <p style="margin-top:10px; color:var(--muted); font-size:13px;">
-                            学歴・受賞歴・資格があればここに追記。
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CONTACT -->
-        <section id="contact">
-            <div class="container">
-                <div class="sectionTitle">
-                    <h2>Contact</h2>
-                    <p>メール or フォーム誘導（GitHub Pagesならmailto運用が軽い）</p>
-                </div>
-
-                <div class="contact">
-                    <div class="card reveal">
-                        <h3 style="margin-top:0;">メール</h3>
-                        <p>下のボタンは端末のメールアプリを開きます。</p>
-                        <div class="ctaRow">
-                            <a class="btn primary" href="mailto:yourmail@example.com?subject=Portfolio%20Inquiry&body=こんにちは。ポートフォリオを拝見しました。%0D%0A">
-                                <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6Z" stroke="white" stroke-width="2" /><path d="m4 7 8 6 8-6" stroke="white" stroke-width="2" /></svg>
-                                メールする
-                            </a>
-                            <a class="btn" href="https://github.com/USERNAME" target="_blank" rel="noreferrer">GitHubへ</a>
-                        </div>
-                        <p style="margin-top:10px; color:var(--muted); font-size:13px;">
-                            ※応募時は、募集要項に合わせて件名を変えると丁寧です。
-                        </p>
-                    </div>
-
-                    <div class="card reveal">
-                        <h3 style="margin-top:0;">メッセージ（任意）</h3>
-                        <p>フォームを置く場合は外部サービス（Google Forms等）へのリンクにすると簡単です。</p>
-                        <div class="ctaRow">
-                            <a class="btn" href="https://forms.gle/FORM_ID" target="_blank" rel="noreferrer">Googleフォームへ</a>
-                            <a class="btn" href="#works">作品へ戻る</a>
-                        </div>
-                        <p style="margin-top:10px; color:var(--muted); font-size:13px;">
-                            フォームを置かない場合はこのカード自体を削除してOK。
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer>
-        <div class="container">
-            <div style="display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px;">
-                <div>© <span id="year"></span> Your Name</div>
-                <div style="color:var(--muted);">Built for GitHub Pages · Single HTML</div>
-            </div>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <!-- MODALS (作品詳細) -->
-    <dialog id="modal" style="
+    <!-- DEMO -->
+    <section id="demo">
+      <div class="container">
+        <div class="sectionTitle">
+          <h2>Demo</h2>
+        </div>
+
+        <div class="grid">
+          <article class="card span6 reveal">
+            <div class="thumb">
+              <video
+                src="HD2D.mp4"
+                controls
+                preload="metadata"
+                playsinline
+                style="width:100%; height:100%; object-fit:cover; border-radius:12px;"
+              ></video>
+            </div>
+            <h3>HD2D表現</h3>
+            <p>
+              目的：HD2D表現の勉強<br />
+              とあるHD2Dのゲームの表現がすごく好きで衝動的に作りたくなりDEMOですが作成いたしました。
+            </p>
+            <div class="meta">
+              <span class="tag">Unity</span>
+              <span class="tag">C#</span>
+              <span class="tag">PostProcess</span>
+              <span class="tag">Particle</span>
+            </div>
+          </article>
+
+          <article class="card span6 reveal">
+            <div class="thumb">
+              <video
+                src="Shader.mp4"
+                controls
+                preload="metadata"
+                playsinline
+                style="width:100%; height:100%; object-fit:cover; border-radius:12px;"
+              ></video>
+            </div>
+            <h3>Shader：言語HLSL</h3>
+            <p>
+              目的：グラフィック表現の勉強<br />
+              簡単なUVスクロールShaderやdissolveShader～interiormappingやtoonShaderまで作りたい表現を言語化しAIと対話しながら幅広く勉強中です。
+            </p>
+            <div class="meta">
+              <span class="tag">Unity</span>
+              <span class="tag">HLSL</span>
+            </div>
+          </article>
+
+          <article class="card span6 reveal">
+            <div class="thumb">
+              <video
+                src="TImeAction.mp4"
+                controls
+                preload="metadata"
+                playsinline
+                style="width:100%; height:100%; object-fit:cover; border-radius:12px;"
+              ></video>
+            </div>
+            <h3>時間巻き戻しアクション(制作途中)</h3>
+            <p>
+              目的：ゲーム制作の感覚を衰えさせないため<br />
+              プレイヤーは最大5秒間、過去の行動を巻き戻すことができ、巻き戻した行動は実体を持つ残像として再生され、床スイッチや扉などのギミック解決に利用します。
+              制作期間は１週間のため見た目は最小限ですが、、3D空間における状態管理・再生処理・責務分離を重視し制作しています。
+            </p>
+            <div class="meta">
+              <span class="tag">Unity</span>
+              <span class="tag">C#</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORKS -->
+    <section id="works">
+      <div class="container">
+        <div class="sectionTitle">
+          <h2>Student Works</h2>
+        </div>
+
+        <div class="grid">
+          <!-- Work 1 -->
+          <article class="card span6 reveal">
+            <div class="thumb" aria-label="作品1サムネ">
+              <img src="CarRace.png" alt="作品1サムネ" style="width:100%; height:100%; object-fit:cover;">
+            </div>
+            <h3>作品１：レースゲーム</h3>
+            <p>
+              校内でXboxのレース用コントローラーを見つけたので好奇心で作成しました。<br/>
+              主に衝突判定、カメラ制御に力をいれました。ブレーキ、シフトチェンジをうまく使い競い合うゲームです。
+            </p>
+            <div class="meta" aria-label="タグ">
+              <span class="tag">C++</span>
+              <span class="tag">DXライブラリ</span>
+              <span class="tag">製作期間：3か月</span>
+              <span class="tag">ポートフォリオ内記載</span>
+            </div>
+            <!-- <div class="links">
+              <a class="smallLink" href="https://github.com/USERNAME/REPO_A" target="_blank" rel="noreferrer">Code (GitHub)</a>
+              <a class="smallLink" href="https://youtu.be/VIDEO_ID" target="_blank" rel="noreferrer">Gameplay (YouTube)</a>
+              <a class="smallLink" href="#" onclick="return openModal('workA');">詳細</a>
+            </div> -->
+          </article>
+
+          <!-- Work 2 -->
+          <article class="card span6 reveal">
+            <div class="thumb" aria-label="作品2サムネ">
+              <img src="TPS.png" alt="作品2サムネ" style="width:100%; height:100%; object-fit:cover;">
+            </div>
+            <h3>作品２：TPSゲーム</h3>
+            <p>
+              レースゲームでも使用した画面分割をし、１画面で多人数プレイを実現<br />
+              主にボーンの制御にこだわった作品です。
+            </p>
+            <div class="meta">
+              <span class="tag">C++</span>
+              <span class="tag">DXライブラリ</span>
+              <span class="tag">製作期間：3か月</span>
+              <span class="tag">ポートフォリオ内記載</span>
+            </div>
+            <div class="links">
+              <!-- <a class="smallLink" href="https://github.com/USERNAME/REPO_B" target="_blank" rel="noreferrer">Code</a>
+              <a class="smallLink" href="#" onclick="return openModal('workB');">詳細</a> -->
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO PDF -->
+    <section id="portfolio">
+      <div class="container">
+        <div class="sectionTitle">
+          <h2>Portfolio PDF</h2>
+          <p>その他の制作物はPDFでまとめています</p>
+        </div>
+
+        <div class="grid">
+          <article class="card span12 reveal">
+            <div class="grid" style="grid-template-columns: 5fr 7fr; gap:14px; align-items:center;">
+              <div class="thumb" style="aspect-ratio: 16/10;">
+                <img src="portfolio.png" alt="ポートフォリオ サムネイル" style="width:100%; height:100%; object-fit:cover;">
+              </div>
+              <div>
+                <h3 style="margin-top:0;">ポートフォリオ（全作品）</h3>
+                <p>
+                  作品数が多いので、全体はPDFにまとめています。<br />
+                  企画・実装・改善の要点を短く整理しています。
+                </p>
+                <div class="links">
+                  <a class="smallLink" href="portfolio.pdf" download>PDFをダウンロード</a>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="container">
+        <div class="sectionTitle">
+          <h2>Skills</h2>
+          <p>使える／触れた、だけでなく「どこで使ったか」をWorksに紐づける</p>
+        </div>
+
+        <div class="grid">
+          <div class="card span8 reveal">
+            <div class="skillList">
+              <div class="skill">
+                <b>ゲーム基礎</b>
+                <span>ゲームループ / 入力 / 当たり判定 / 状態管理 / セーブ</span>
+                <div class="bar" aria-hidden="true"><i style="width:72%"></i></div>
+              </div>
+              <div class="skill">
+                <b>数学・物理</b>
+                <span>ベクトル / 行列 / 補間 / 速度・加速度 / コリジョン</span>
+                <div class="bar" aria-hidden="true"><i style="width:58%"></i></div>
+              </div>
+              <div class="skill">
+                <b>最適化・品質</b>
+                <span>プロファイル / GC対策 / フレーム時間管理 / 再現性のあるデバッグ</span>
+                <div class="bar" aria-hidden="true"><i style="width:55%"></i></div>
+              </div>
+              <div class="skill">
+                <b>AI / ツール</b>
+                <span>ステート / BT / ログ可視化 / エディタ拡張 / 自動化</span>
+                <div class="bar" aria-hidden="true"><i style="width:50%"></i></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card span4 reveal">
+            <div style="font-weight:700; margin-bottom:8px;">Tech Stack（例）</div>
+            <div class="meta">
+              <span class="tag">C</span>
+              <span class="tag">C++</span>
+              <span class="tag">C#</span>
+              <span class="tag">React</span>
+              <span class="tag">Unity</span>
+              <span class="tag">UnrealEngine5</span>
+              <span class="tag">Git</span>
+              <span class="tag">GitHub Desktop</span>
+              <span class="tag">SourceTree</span>
+              <span class="tag">HLSL(学習中)</span>
+            </div>
+            <div style="margin-top:10px; color:var(--muted); font-size:13.5px;">
+              得意分野／興味分野があればここに強調するとLPっぽくまとまります。<br/>
+              <span style="color: rgba(255,255,255,.55);">HLSL：沼に片足（抜ける予定なし）</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS
+    <section id="process">
+      <div class="container">
+        <div class="sectionTitle">
+          <h2>Process</h2>
+          <p>制作の進め方（採用側は「再現性」を見たい）</p>
+        </div>
+
+        <div class="grid">
+          <div class="card span6 reveal">
+            <h3 style="margin-top:0;">設計 → 実装 → 検証 → 改善</h3>
+            <p>
+              仕様を小さく切り、バグの再現条件を固定し、ログ／可視化で原因を潰します。
+              「触って気持ちいい」を数値（入力遅延/速度/カメラ追従）でも追います。
+            </p>
+            <div class="meta">
+              <span class="tag">Issue駆動</span>
+              <span class="tag">再現手順</span>
+              <span class="tag">Debug UI</span>
+              <span class="tag">Profiling</span>
+            </div>
+          </div>
+
+          <div class="card span6 reveal">
+            <h3 style="margin-top:0;">見せ方</h3>
+            <p>
+              READMEに「目的」「担当箇所」「工夫」「苦労」「改善ログ」を短くまとめます。
+              動画は30〜60秒のハイライトを用意し、リンクで誘導します。
+            </p>
+            <div class="meta">
+              <span class="tag">README</span>
+              <span class="tag">1分動画</span>
+              <span class="tag">比較GIF</span>
+              <span class="tag">Before/After</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card reveal" style="margin-top:14px;">
+          <h3 style="margin:0 0 8px;">改善ログ（例）</h3>
+          <div class="timeline">
+            <div class="row">
+              <div class="when">Week 1</div>
+              <div>
+                <b>プレイヤー制御の入力遅延を低減</b>
+                <p>入力→物理→描画の順序を見直し、プロファイルでフレーム内のボトルネックを特定。</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="when">Week 2</div>
+              <div>
+                <b>当たり判定の安定化</b>
+                <p>ヒット判定をフレーム依存から時間ベースへ調整。ログで再現性を担保。</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="when">Week 3</div>
+              <div>
+                <b>デバッグ可視化ツール追加</b>
+                <p>Navmesh / A* / 視界判定を画面上に表示し、調整コストを削減。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section> -->
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="container">
+        <div class="sectionTitle">
+          <h2>About</h2>
+        </div>
+
+        <div class="grid">
+          <div class="card span7 reveal">
+            <h3 style="margin-top:0;">自己紹介</h3>
+            <p>
+              学生時代はゲームプログラミングに取り組み、レースゲームやTPSの制作を経験しました。
+              社会人となってからは、AIエンジニアおよびWebエンジニアとして企業に勤務し、業務の一環としてUnreal Engineを用いたシミュレーションの作成にも携わっています。
+              また、業務の傍ら、帰宅後はHLSLを用いたグラフィック表現の学習や、C#の勉強に継続的に取り組み、技術の幅を継続的に広げています。
+            </p>
+            <div class="meta">
+              <span class="tag">趣味：Game / VRChat</span>
+              <span class="tag">好き：ドラゴンクエスト</span>
+              <span class="tag">興味：Shader</span>
+            </div>
+          </div>
+
+          <div class="card span5 reveal">
+            <h3 style="margin-top:0;">基本情報</h3>
+            <p class="mono" style="line-height:1.9;">
+              名前:PDF ポートフォリオに記載<br />
+              年齢: 23歳<br />
+              居住地: 東京都<br />
+              GitHub: github.com/USERNAME<br />
+              X/Twitter: https://x.com/dogu_623<br />
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <div class="sectionTitle">
+          <h2>Contact</h2>
+          <p>メール or フォーム誘導（GitHub Pagesならmailto運用が軽い）</p>
+        </div>
+
+        <div class="contact">
+          <div class="card reveal">
+            <h3 style="margin-top:0;">メール</h3>
+            <p>下のボタンは端末のメールアプリを開きます。</p>
+            <div class="ctaRow">
+              <a class="btn primary" href="mailto:yourmail@example.com?subject=Portfolio%20Inquiry&body=こんにちは。ポートフォリオを拝見しました。%0D%0A">
+                <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6Z" stroke="white" stroke-width="2" /><path d="m4 7 8 6 8-6" stroke="white" stroke-width="2" /></svg>
+                メールする
+              </a>
+              <a class="btn" href="https://github.com/USERNAME" target="_blank" rel="noreferrer">GitHubへ</a>
+            </div>
+            <p style="margin-top:10px; color:var(--muted); font-size:13px;">
+              ※応募時は、募集要項に合わせて件名を変えると丁寧です。
+            </p>
+          </div>
+
+          <div class="card reveal">
+            <h3 style="margin-top:0;">メッセージ（任意）</h3>
+            <p>フォームを置く場合は外部サービス（Google Forms等）へのリンクにすると簡単です。</p>
+            <div class="ctaRow">
+              <a class="btn" href="https://forms.gle/FORM_ID" target="_blank" rel="noreferrer">Googleフォームへ</a>
+              <a class="btn" href="#works">作品へ戻る</a>
+            </div>
+            <p style="margin-top:10px; color:var(--muted); font-size:13px;">
+              フォームを置かない場合はこのカード自体を削除してOK。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <div style="display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px;">
+        <div>© <span id="year"></span> Your Name</div>
+        <div style="color:var(--muted);">Built for GitHub Pages · Single HTML</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODALS (作品詳細) -->
+  <dialog id="modal" style="
     border:1px solid rgba(255,255,255,.18);
     border-radius: 18px;
     max-width: 860px;
@@ -965,12 +1120,12 @@
     box-shadow: 0 30px 90px rgba(0,0,0,.6);
     padding: 0;
   ">
-        <div style="padding:16px 16px; border-bottom:1px solid rgba(255,255,255,.12); display:flex; align-items:center; justify-content:space-between; gap:10px;">
-            <div>
-                <div id="modalTitle" style="font-weight:700;"></div>
-                <div id="modalSub" style="color:rgba(255,255,255,.65); font-size:13px; margin-top:2px;"></div>
-            </div>
-            <button onclick="closeModal()" style="
+    <div style="padding:16px 16px; border-bottom:1px solid rgba(255,255,255,.12); display:flex; align-items:center; justify-content:space-between; gap:10px;">
+      <div>
+        <div id="modalTitle" style="font-weight:700;"></div>
+        <div id="modalSub" style="color:rgba(255,255,255,.65); font-size:13px; margin-top:2px;"></div>
+      </div>
+      <button onclick="closeModal()" style="
         background: rgba(255,255,255,.06);
         color: rgba(255,255,255,.9);
         border:1px solid rgba(255,255,255,.14);
@@ -978,18 +1133,18 @@
         padding: 8px 10px;
         cursor:pointer;
       ">
-                閉じる
-            </button>
-        </div>
-        <div style="padding: 16px;">
-            <div id="modalBody" style="color: rgba(255,255,255,.78); font-size: 14px; line-height: 1.7;"></div>
-            <div style="margin-top:14px; padding-top:12px; border-top:1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.65); font-size: 12.5px;">
-                ポイント：採用側は「工夫」「再現性」「担当範囲」「改善」を見ます（成果物の派手さだけではない）。
-            </div>
-        </div>
-    </dialog>
+        閉じる
+      </button>
+    </div>
+    <div style="padding: 16px;">
+      <div id="modalBody" style="color: rgba(255,255,255,.78); font-size: 14px; line-height: 1.7;"></div>
+      <div style="margin-top:14px; padding-top:12px; border-top:1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.65); font-size: 12.5px;">
+        ポイント：採用側は「工夫」「再現性」「担当範囲」「改善」を見ます（成果物の派手さだけではない）。
+      </div>
+    </div>
+  </dialog>
 
-    <script>
+  <script>
     // Footer year
     document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -1015,6 +1170,9 @@
             <li><b>改善</b>：プロファイルし、GC/Update負荷を抑制（例：アロケ削減、キャッシュ）。</li>
             <li><b>見どころ</b>：READMEに「再現手順」「改善ログ」「担当範囲」を明記。</li>
           </ul>
+          <div style="margin-top:10px; color: rgba(255,255,255,.65); font-size: 12.5px;">
+            ※この章のラスボス：<span style="font-family: var(--mono);">NullReferenceException</span>
+          </div>
         `
       },
       workB: {
@@ -1069,6 +1227,140 @@
         rect.left <= e.clientX && e.clientX <= rect.right;
       if (!inDialog) modal.close();
     });
-    </script>
+
+    /* =========================================================
+       GAME BOOT / PRESS START
+       ========================================================= */
+    (function(){
+      const boot = document.getElementById("boot");
+      const logEl = document.getElementById("bootLog");
+      const barEl = document.getElementById("bootBar");
+      const startBtn = document.getElementById("pressStart");
+      const chip = document.getElementById("bootChip");
+      const hint = document.getElementById("bootHint");
+
+      if(!boot || !logEl || !barEl || !startBtn) return;
+
+      const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      // 2回目以降は少し短くする（任意）
+      const seen = localStorage.getItem("boot_seen") === "1";
+      chip.textContent = seen ? "resume" : "fresh-boot";
+
+      const linesFirst = [
+        "[SYSTEM] Boot sequence start...",
+        "[GPU] Shader cache warm-up (not real, but気分)",
+        "[IO ] Loading Works / Skills / About...",
+        "[OK ] Input devices detected: Keyboard, Mouse",
+        "[OK ] Frame budget: 16.6ms (目標)",
+      ];
+
+      const linesSeen = [
+        "[SYSTEM] Resume...",
+        "[OK ] Cached assets loaded",
+        "[OK ] Welcome back, PLAYER 1",
+      ];
+
+      const lines = seen ? linesSeen : linesFirst;
+
+      let progress = 0;
+      let idx = 0;
+      let timer = null;
+      let ready = false;
+
+      function appendLine(t){
+        logEl.textContent += (logEl.textContent ? "\n" : "") + t;
+        // keep last ~12 lines visible
+        const arr = logEl.textContent.split("\n");
+        if(arr.length > 12){
+          logEl.textContent = arr.slice(arr.length - 12).join("\n");
+        }
+      }
+
+      function setProgress(p){
+        progress = Math.max(0, Math.min(100, p));
+        barEl.style.width = progress + "%";
+      }
+
+      function finishToStart(){
+        ready = true;
+        startBtn.style.display = "inline-flex";
+        hint.textContent = "Enter / Space / Click で開始";
+        appendLine("[READY] Press Start.");
+        // focus for keyboard users
+        startBtn.focus({ preventScroll: true });
+      }
+
+      function closeBoot(){
+        boot.classList.add("bootHidden");
+        localStorage.setItem("boot_seen", "1");
+        // a11y: allow interaction behind overlay
+        setTimeout(() => {
+          boot.style.display = "none";
+        }, 380);
+      }
+
+      function tick(){
+        if(idx < lines.length){
+          appendLine(lines[idx]);
+          idx++;
+          setProgress(Math.min(90, progress + (seen ? 35 : 20)));
+          return;
+        }
+        // fake last step
+        if(progress < 100){
+          setProgress(100);
+          appendLine("[OK ] Launching scene: Portfolio");
+          finishToStart();
+          clearInterval(timer);
+          timer = null;
+        }
+      }
+
+      // Start boot sequence after load (or immediately if reduce motion)
+      window.addEventListener("load", () => {
+        // For very slow loads, show something early
+        logEl.textContent = "";
+        appendLine(seen ? "[SYSTEM] Checking save data..." : "[SYSTEM] Initializing...");
+
+        if(reduceMotion){
+          lines.forEach(l => appendLine(l));
+          setProgress(100);
+          finishToStart();
+          return;
+        }
+
+        timer = setInterval(tick, seen ? 260 : 340);
+        // also kick one immediately
+        setTimeout(tick, 150);
+      }, { once: true });
+
+      // Controls
+      startBtn.addEventListener("click", closeBoot);
+
+      window.addEventListener("keydown", (e) => {
+        if(!boot || boot.style.display === "none") return;
+
+        if(e.key === "Escape"){
+          // allow skipping even before ready
+          closeBoot();
+          return;
+        }
+        if(ready && (e.key === "Enter" || e.key === " ")){
+          e.preventDefault();
+          closeBoot();
+        }
+      });
+
+      // click outside button also starts (only if ready)
+      boot.addEventListener("click", (e) => {
+        if(!ready) return;
+        const card = boot.querySelector(".bootCard");
+        if(card && !card.contains(e.target)){
+          closeBoot();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
