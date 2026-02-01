@@ -770,7 +770,7 @@
       <div class="container">
         <div class="heroGrid">
           <div>
-            <div class="badge"><span class="dot"></span> PLAYER 1</div>
+            <div class="badge"><span class="dot"></span> オンライン</div>
             <h1>
               一歩ずつ、憧れの世界へ。<br />
               <span style="background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent;">
@@ -928,11 +928,18 @@
               ></video>
             </div>
             <h3>HD2D表現</h3>
+            <p><font size="3" color="white">表現手法の検証と視認性向上のための実装</font></p>
             <p>
+ HD2D 表現の実現にあたり、表現手法が不明確な部分については YouTube や技術記事を参考に検証を行い、影 Shader や衝突判定、ポストプロセスを実装しました。
+また、カメラとプレイヤーの間にあるオブジェクトを判定して半透明化する処理を行うことで、HD-2D 特有の奥行き感を保ちつつ、プレイヤーの視認性を確保しています。
+            </p>
+            <!-- <p>
               表現手法がわからない部分については、YouTube や技術記事を参考にしながら検証を重ね、影Shaderや衝突判定、ポストプロセスを実装しています。
 また、カメラとプレイヤーの間にオブジェクトが存在する場合に視認性が損なわれる課題に対し、カメラ方向からプレイヤーに重なっているオブジェクトを判定し、半透明化する処理を実装しました。これにより、HD-2D 特有の奥行き感を保ちつつ、プレイヤーの視認性を確保しています。
 
-            </p>
+
+
+            </p> -->
             <div class="meta">
               <span class="tag">Unity</span>
               <span class="tag">C#</span>
@@ -958,10 +965,18 @@
               ></video>
             </div>
             <h3>時間巻き戻しアクション(制作途中)</h3>
+            <p><font size="3" color="white">時間巻き戻し表現の検証と残像システムの実装</font></p>
             <p>
+              Unity で制作した、時間を巻き戻す能力と残像（Ghost）を活用した三人称視点の 3D アクションです。
+              最大 5 秒前まで行動を戻すことができ、その行動は実体を持つ残像として再生され、仕掛けの攻略に利用できます。
+              制作期間は１週間のため見た目は最小限ですが、3D空間における状態管理・再生処理・責務分離を重視し制作しています。
+<!-- Unity で制作した、時間巻き戻しと残像（Ghost）を用いた三人称視点の 3D アクションです。プレイヤーは最大 5 秒間行動を巻き戻すことができ、その行動は実体を持つ残像として再生され、ギミック解決に利用されます。
+行動は FixedUpdate ベースで記録し、巻き戻し時は記録データを逆順に適用することで、安定した時間操作と残像再生を実現しています。 -->
+            </p>
+            <!-- <p>
               プレイヤーは最大5秒間、過去の行動を巻き戻すことができ、巻き戻した行動は実体を持つ残像として再生され、床スイッチや扉などのギミック解決に利用します。
               制作期間は１週間のため見た目は最小限ですが、、3D空間における状態管理・再生処理・責務分離を重視し制作しています。
-            </p>
+            </p> -->
             <div class="meta">
               <span class="tag">Unity</span>
               <span class="tag">C#</span>
@@ -995,8 +1010,11 @@
             </div>
             <h3>Shader：言語HLSL</h3>
             <p>
-              Unlit Shader、UV スクロール、ディゾルブ Shader などの基礎的な表現から取り組み、現在は Interior Mapping や Toon Shader の自作にも挑戦しています。<br/>ホログラム Shader では、透明表現によって衣服の内部などが透けて見えてしまう問題に対し、Z バッファのみを書き込むパスと通常描画パスを分けた 2Pass 構成を採用し、透明感を保ちつつ、オブジェクトの前後関係が破綻しない、見た目と実用性を両立した Shaderを実現しています。<br/>
-              AI との対話や技術資料を活用しながら、「どうすれば実現できるか」「どこが問題になり得るか」を一つずつ整理し、試行錯誤を重ねながら継続的に学習を進めています。
+              Unlit Shader や UV スクロール、ディゾルブ表現といった基本的な描画表現から学び、現在は Interior Mapping や Toon 表現の自作にも取り組んでいます。
+ホログラム表現では、透明にすることで衣服の内側などが不自然に見えてしまう問題に対し、描画の工程を分ける工夫を行い、透明感を保ちながらもオブジェクトの前後関係が破綻しない表現を実現しました。</br>
+AI との対話や技術資料を活用しながら、実現方法や想定される課題を一つずつ整理し、試行錯誤を通して継続的に学習を進めています。
+              <!-- Unlit Shader、UV スクロール、ディゾルブ Shader などの基礎的な表現から取り組み、現在は Interior Mapping や Toon Shader の自作にも挑戦しています。<br/>ホログラム Shader では、透明表現によって衣服の内部などが透けて見えてしまう問題に対し、Z バッファのみを書き込むパスと通常描画パスを分けた 2Pass 構成を採用し、透明感を保ちつつ、オブジェクトの前後関係が破綻しない、見た目と実用性を両立した Shaderを実現しています。<br/>
+              AI との対話や技術資料を活用しながら、「どうすれば実現できるか」「どこが問題になり得るか」を一つずつ整理し、試行錯誤を重ねながら継続的に学習を進めています。 -->
             </p>
             <div class="meta">
               <span class="tag">Unity</span>
@@ -1020,7 +1038,7 @@
             <div class="thumb" aria-label="作品1サムネ">
               <img src="CarRace.png" alt="作品1サムネ" style="width:100%; height:100%; object-fit:cover;">
             </div>
-            <h3>作品１：レースゲーム</h3>
+            <h3>レースゲーム</h3>
             <p>
               移動先座標を用いた衝突判定でガードレースのすり抜けを回避。<br/>
               カメラ演出では普通の追従カメラだと疾走感が欠けたので球面線形補間を用いて臨場感を出しました。衝突判定、カメラ制御に力をいれた作品です。
@@ -1048,7 +1066,7 @@
             <div class="thumb" aria-label="作品2サムネ">
               <img src="TPS.png" alt="作品2サムネ" style="width:100%; height:100%; object-fit:cover;">
             </div>
-            <h3>作品２：TPSゲーム</h3>
+            <h3>TPSゲーム</h3>
             <p>
               レースゲームでも使用した画面分割をし、１画面で多人数プレイを実現。<br />
               高低差のあるステージで上下の撃ち分けができるようにアニメーションを使わずにフレーム制御で腰曲げをしました。フレーム制御にこだわった作品です。
@@ -1088,7 +1106,7 @@
                   下記ボタンからダウンロードできます。
                 </p>
                 <div class="links">
-                  <a class="smallLink" href="latest-portfolio.pdf" download>PDFをダウンロード</a>
+                  <a class="smallLink" href="portfolio.pdf" download>PDFをダウンロード</a>
                 </div>
               </div>
             </div>
@@ -1248,16 +1266,16 @@
 
       const linesFirst = [
         "[SYSTEM] Boot sequence start...",
-        "[GPU] Shader cache warm-up (not real, but気分)",
+        "[GPU] Shader cache warm-up ",
         "[IO ] Loading Works / Skills / About...",
         "[OK ] Input devices detected: Keyboard, Mouse",
-        "[OK ] Frame budget: 16.6ms (目標)",
+        "[OK ] Frame budget: 16.6ms ",
       ];
 
       const linesSeen = [
         "[SYSTEM] Resume...",
         "[OK ] Cached assets loaded",
-        "[OK ] Welcome back, PLAYER 1",
+        "[OK ] Welcome back, visitor",
       ];
 
       const lines = seen ? linesSeen : linesFirst;
